@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Calificación</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        .warning-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #e53e3e;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        .info-box {
+            background: #f7fafc;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 4px solid #e53e3e;
+            text-align: left;
+        }
+        .info-box p {
+            margin: 10px 0;
+            color: #333;
+            font-size: 16px;
+        }
+        .info-box strong {
+            color: #e53e3e;
+        }
+        .warning-text {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        button {
+            background: #e53e3e;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: #c53030;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.4);
+        }
+        .cancel-btn {
+            background: #718096;
+            padding: 15px 40px;
+            text-decoration: none;
+            color: white;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        .cancel-btn:hover {
+            background: #4a5568;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(113, 128, 150, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="warning-icon">⚠️</div>
+        <h1>¿Eliminar esta calificación?</h1>
+        <p class="warning-text">Esta acción es irreversible. ¿Estás completamente seguro de que deseas eliminar este registro?</p>
+
+        <div class="info-box">
+            <p><strong>👤 Estudiante:</strong> {{ calificacion.nombre_estudiante }}</p>
+            <p><strong>🆔 Identificación:</strong> {{ calificacion.identificacion }}</p>
+            <p><strong>📚 Asignatura:</strong> {{ calificacion.asignatura }}</p>
+            <p><strong>📊 Notas:</strong> {{ calificacion.nota1 }} | {{ calificacion.nota2 }} | {{ calificacion.nota3 }}</p>
+            <p><strong>⭐ Promedio:</strong> {{ calificacion.promedio }}</p>
+        </div>
+
+        <form method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit">🗑️ Sí, Eliminar</button>
+        </form>
+        <a href="{% url 'calificaciones:listar_calificaciones' %}" class="cancel-btn">❌ Cancelar</a>
+    </div>
+</body>
+</html>

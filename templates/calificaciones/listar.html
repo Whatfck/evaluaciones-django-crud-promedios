@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Calificaciones</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+            text-align: center;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .create-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .create-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        th {
+            padding: 15px 10px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+        td {
+            padding: 15px 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+        .action-btn {
+            padding: 6px 12px;
+            border-radius: 3px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+        .edit-btn {
+            background: #48bb78;
+            color: white;
+        }
+        .delete-btn {
+            background: #f56565;
+            color: white;
+        }
+        .action-btn:hover {
+            opacity: 0.8;
+        }
+        .no-records {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-style: italic;
+        }
+        .average-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .average-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+        .average-value {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .detail-link {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid white;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .detail-link:hover {
+            background: white;
+            color: #667eea;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        .empty-state h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Calificaciones Registradas</h1>
+        <p class="subtitle">Gestión completa de calificaciones de estudiantes</p>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <a href="{% url 'calificaciones:crear_calificacion' %}" class="create-btn" style="margin-bottom: 0;">➕ Crear Nueva Calificación</a>
+            <form action="{% url 'calificaciones:logout' %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" style="background: #f56565; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: 600; cursor: pointer; transition: all 0.3s;">🚪 Cerrar Sesión</button>
+            </form>
+        </div>
+
+        <div class="table-container">
+            {% if calificaciones %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre Estudiante</th>
+                        <th>Identificación</th>
+                        <th>Asignatura</th>
+                        <th>Nota 1</th>
+                        <th>Nota 2</th>
+                        <th>Nota 3</th>
+                        <th>Promedio</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for calificacion in calificaciones %}
+                    <tr>
+                        <td>{{ calificacion.nombre_estudiante }}</td>
+                        <td>{{ calificacion.identificacion }}</td>
+                        <td>{{ calificacion.asignatura }}</td>
+                        <td>{{ calificacion.nota1 }}</td>
+                        <td>{{ calificacion.nota2 }}</td>
+                        <td>{{ calificacion.nota3 }}</td>
+                        <td><strong>{{ calificacion.promedio }}</strong></td>
+                        <td class="actions">
+                            <a href="{% url 'calificaciones:editar_calificacion' calificacion.pk %}" class="action-btn edit-btn">✏️ Editar</a>
+                            <a href="{% url 'calificaciones:eliminar_calificacion' calificacion.pk %}" class="action-btn delete-btn">🗑️ Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="empty-state">
+                <h2>📊 No hay calificaciones registradas</h2>
+                <p>Comienza agregando una nueva calificación usando el botón de arriba.</p>
+            </div>
+            {% endif %}
+        </div>
+
+        {% if promedio_general is not None %}
+        <div class="average-section">
+            <div class="average-title">📈 Promedio General de Todos los Estudiantes</div>
+            <div class="average-value">{{ promedio_general }}</div>
+            <a href="{% url 'calificaciones:promedio_general' %}" class="detail-link">Ver Detalle Completo</a>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

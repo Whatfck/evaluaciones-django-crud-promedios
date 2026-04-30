@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promedio General</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+        }
+        .back-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 32px;
+        }
+        .average-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        .average-title {
+            font-size: 20px;
+            font-weight: 400;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .average-value {
+            font-size: 72px;
+            font-weight: 700;
+        }
+        .no-data {
+            background: #f7fafc;
+            padding: 40px;
+            border-radius: 10px;
+            color: #666;
+            font-size: 18px;
+            border: 2px dashed #cbd5e0;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 12px 30px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        .back-link:hover {
+            background: #667eea;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-icon">📈</div>
+        <h1>Promedio General</h1>
+
+        {% if promedio_general is not None %}
+        <div class="average-card">
+            <div class="average-title">Promedio de Todos los Estudiantes</div>
+            <div class="average-value">{{ promedio_general }}</div>
+        </div>
+        {% else %}
+        <div class="no-data">
+            <p>📚 No hay calificaciones registradas aún.</p>
+            <p style="margin-top: 10px; font-size: 16px;">Agrega calificaciones para calcular el promedio general.</p>
+        </div>
+        {% endif %}
+
+        <a href="{% url 'calificaciones:listar_calificaciones' %}" class="back-link">← Volver al Listado</a>
+    </div>
+</body>
+</html>
