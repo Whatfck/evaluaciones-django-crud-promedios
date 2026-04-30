@@ -19,7 +19,10 @@ class Calificacion(models.Model):
     promedio = models.DecimalField(max_digits=5, decimal_places=2, editable=False, default=Decimal('0.00'))
 
     def calcular_promedio(self):
-        total = self.nota1 + self.nota2 + self.nota3
+        nota1 = Decimal(self.nota1)
+        nota2 = Decimal(self.nota2)
+        nota3 = Decimal(self.nota3)
+        total = nota1 + nota2 + nota3
         return round(total / Decimal('3'), 2)
 
     def save(self, *args, **kwargs):
