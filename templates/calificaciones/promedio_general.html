@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Promedio General</title>
+</head>
+<body>
+    <h1>Promedio General de Calificaciones</h1>
+    {% if promedio_general %}
+    <p>El promedio general es: {{ promedio_general }}</p>
+    {% else %}
+    <p>No hay calificaciones registradas.</p>
+    {% endif %}
+    <a href="{% url 'calificaciones:listar_calificaciones' %}">Volver a la lista</a>
+</body>
+</html>
