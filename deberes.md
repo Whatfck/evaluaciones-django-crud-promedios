@@ -24,4 +24,6 @@
   - Ejecutar migraciones y gestionar la integración con la base de datos (crear y aplicar migraciones necesarias).
   - Ejecutar el servidor (`python manage.py runserver`) y verificar la correcta operación de las funciones CRUD y la actualización automática del campo `promedio`.
   - Validar que el promedio general se calcule y muestre dinámicamente en la vista correspondiente, y ayudar a corregir errores detectados durante la validación.
+  - Preparar scripts de despliegue y configuración para Vercel; coordinar variables de entorno y ajustes de CI/CD necesarios.
+  - Asegurar que el despliegue en Vercel sirva el mismo front para todos los desarrolladores (interfaces/plantillas coherentes).
 
