@@ -1,3 +1,16 @@
-<!-- Plantilla placeholder para crear calificaciones -->
-<h1>Crear calificación (placeholder)</h1>
-<!-- TODO: reemplazar con el form real -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Calificación</title>
+</head>
+<body>
+    <h1>Crear Nueva Calificación</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Crear</button>
+    </form>
+    <a href="{% url 'calificaciones:listar_calificaciones' %}">Volver a la lista</a>
+</body>
+</html>

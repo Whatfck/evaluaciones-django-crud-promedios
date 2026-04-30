@@ -1,3 +1,16 @@
-<!-- Plantilla placeholder para editar calificaciones -->
-<h1>Editar calificación (placeholder)</h1>
-<!-- TODO: formulario de edición -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Calificación</title>
+</head>
+<body>
+    <h1>Editar Calificación</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar Cambios</button>
+    </form>
+    <a href="{% url 'calificaciones:listar_calificaciones' %}">Volver a la lista</a>
+</body>
+</html>
