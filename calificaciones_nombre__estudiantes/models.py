@@ -1,5 +1,6 @@
 from decimal import Decimal
 
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 
@@ -7,9 +8,9 @@ class Calificacion(models.Model):
     nombre_estudiante = models.CharField(max_length=150)
     identificacion = models.CharField(max_length=15)
     asignatura = models.CharField(max_length=100)
-    nota1 = models.DecimalField(max_digits=5, decimal_places=2)
-    nota2 = models.DecimalField(max_digits=5, decimal_places=2)
-    nota3 = models.DecimalField(max_digits=5, decimal_places=2)
+    nota1 = models.DecimalField(max_digits=5, decimal_places=2, validators=[MinValueValidator(Decimal('0.00')), MaxValueValidator(Decimal('5.00'))])
+    nota2 = models.DecimalField(max_digits=5, decimal_places=2, validators=[MinValueValidator(Decimal('0.00')), MaxValueValidator(Decimal('5.00'))])
+    nota3 = models.DecimalField(max_digits=5, decimal_places=2, validators=[MinValueValidator(Decimal('0.00')), MaxValueValidator(Decimal('5.00'))])
     promedio = models.DecimalField(max_digits=5, decimal_places=2, editable=False, default=Decimal('0.00'))
 
     def calcular_promedio(self):
