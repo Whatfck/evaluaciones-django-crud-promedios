@@ -5,8 +5,12 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+RUNNING_ON_VERCEL = str(BASE_DIR).startswith('/var/task') or bool(
+    os.getenv('VERCEL_URL') or os.getenv('VERCEL_ENV') or os.getenv('VERCEL_REGION')
+)
+
 SECRET_KEY = os.getenv('SECRET_KEY', 'replace-me')
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
+DEBUG = os.getenv('DEBUG', 'False' if RUNNING_ON_VERCEL else 'True') == 'True'
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,.vercel.app').split(',')
 
 INSTALLED_APPS = [
@@ -52,7 +56,7 @@ WSGI_APPLICATION = 'evaluaciones__nombre__estudiantes.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': Path('/tmp/db.sqlite3') if os.getenv('VERCEL') else BASE_DIR / 'db.sqlite3',
+        'NAME': Path('/tmp/db.sqlite3') if RUNNING_ON_VERCEL else BASE_DIR / 'db.sqlite3',
     }
 }
 
