@@ -1,16 +1,19 @@
-"""Plantilla de `settings.py` para referencia del equipo.
+"""Configuración mínima de ejemplo para desarrollo local.
 
-Rellenar valores reales al crear el proyecto. Esto NO es una configuración completa,
-solo sirve como guía y puntos clave a verificar.
+Completar o securizar antes de un despliegue real. Esta configuración
+usa SQLite y busca variables de entorno cuando es posible.
 """
 
 import os
+from pathlib import Path
 
-# TODO: completar con valores reales al crear el proyecto
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'replace-me'
-DEBUG = True
+SECRET_KEY = os.getenv('SECRET_KEY', 'replace-me')
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -19,7 +22,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Añadir la app de calificaciones aquí
     'calificaciones_nombre__estudiantes',
 ]
 
@@ -33,12 +35,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+ROOT_URLCONF = 'evaluaciones__nombre__estudiantes.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -51,13 +53,20 @@ TEMPLATES = [
     },
 ]
 
+WSGI_APPLICATION = 'evaluaciones__nombre__estudiantes.wsgi.application'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
-ROOT_URLCONF = 'evaluaciones__nombre__estudiantes.urls'
+AUTH_PASSWORD_VALIDATORS = []
+
+LANGUAGE_CODE = 'es-es'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_TZ = True
 
 STATIC_URL = '/static/'

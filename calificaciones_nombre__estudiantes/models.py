@@ -1,4 +1,13 @@
+"""Plantilla de `models.py` para la app `calificaciones_nombre__estudiantes`.
+
+Esta plantilla NO implementa lógica, solo muestra la estructura sugerida.
+Sustituir y completar al implementar el modelo real.
+"""
+
+from decimal import Decimal
+
 from django.db import models
+
 
 class Calificacion(models.Model):
     nombre_estudiante = models.CharField(max_length=150)
@@ -7,10 +16,11 @@ class Calificacion(models.Model):
     nota1 = models.DecimalField(max_digits=5, decimal_places=2)
     nota2 = models.DecimalField(max_digits=5, decimal_places=2)
     nota3 = models.DecimalField(max_digits=5, decimal_places=2)
-    promedio = models.DecimalField(max_digits=5, decimal_places=2, editable=False)
+    promedio = models.DecimalField(max_digits=5, decimal_places=2, editable=False, default=Decimal('0.00'))
 
     def calcular_promedio(self):
-        return round((self.nota1 + self.nota2 + self.nota3) / 3, 2)
+        total = self.nota1 + self.nota2 + self.nota3
+        return round(total / Decimal('3'), 2)
 
     def save(self, *args, **kwargs):
         self.promedio = self.calcular_promedio()
@@ -18,3 +28,4 @@ class Calificacion(models.Model):
 
     def __str__(self):
         return f"{self.nombre_estudiante} - {self.asignatura}"
+
