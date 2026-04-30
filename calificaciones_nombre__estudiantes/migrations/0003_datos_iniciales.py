@@ -46,7 +46,7 @@ def crear_datos_iniciales(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('calificaciones_nombre__estudiantes', '0001_initial'),
+        ('calificaciones_nombre__estudiantes', '0002_alter_calificacion_options'),
     ]
 
     operations = [
