@@ -5,11 +5,12 @@ No incluye lógica; completar cuando se implemente `models.Calificacion`.
 
 from django import forms
 
-# from .models import Calificacion
+from .models import Calificacion
 
-# class CalificacionForm(forms.ModelForm):
-#     class Meta:
-#         model = Calificacion
-#         exclude = ['promedio']
 
-# TODO: descomentar y ajustar cuando `Calificacion` esté implementado.
+class CalificacionForm(forms.ModelForm):
+	class Meta:
+		model = Calificacion
+		exclude = ['promedio']
+
+
