@@ -6,6 +6,9 @@ from django.db import migrations
 def crear_datos_iniciales(apps, schema_editor):
     Calificacion = apps.get_model('calificaciones_nombre__estudiantes', 'Calificacion')
 
+    def calcular_promedio(nota1, nota2, nota3):
+        return round((nota1 + nota2 + nota3) / Decimal('3'), 2)
+
     datos = [
         {
             'nombre_estudiante': 'Ana María Pérez',
@@ -41,6 +44,7 @@ def crear_datos_iniciales(apps, schema_editor):
             nota1=dato['nota1'],
             nota2=dato['nota2'],
             nota3=dato['nota3'],
+            defaults={'promedio': calcular_promedio(dato['nota1'], dato['nota2'], dato['nota3'])},
         )
 
 
