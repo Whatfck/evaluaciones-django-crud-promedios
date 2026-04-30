@@ -1,3 +1,46 @@
-<!-- Plantilla placeholder para listar calificaciones -->
-<h1>Listar calificaciones (placeholder)</h1>
-<!-- TODO: tabla con registros y promedio general -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Listar Calificaciones</title>
+</head>
+<body>
+    <h1>Calificaciones Registradas</h1>
+    <a href="{% url 'calificaciones:crear_calificacion' %}">Crear Nueva Calificación</a>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nombre Estudiante</th>
+                <th>Identificación</th>
+                <th>Asignatura</th>
+                <th>Nota 1</th>
+                <th>Nota 2</th>
+                <th>Nota 3</th>
+                <th>Promedio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for calificacion in calificaciones %}
+            <tr>
+                <td>{{ calificacion.nombre_estudiante }}</td>
+                <td>{{ calificacion.identificacion }}</td>
+                <td>{{ calificacion.asignatura }}</td>
+                <td>{{ calificacion.nota1 }}</td>
+                <td>{{ calificacion.nota2 }}</td>
+                <td>{{ calificacion.nota3 }}</td>
+                <td>{{ calificacion.promedio }}</td>
+                <td>
+                    <a href="{% url 'calificaciones:editar_calificacion' calificacion.pk %}">Editar</a>
+                    <a href="{% url 'calificaciones:eliminar_calificacion' calificacion.pk %}">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if promedio_general %}
+    <p>Promedio General: {{ promedio_general }}</p>
+    {% endif %}
+    <a href="{% url 'calificaciones:promedio_general' %}">Ver Promedio General</a>
+</body>
+</html>
