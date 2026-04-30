@@ -1,9 +1,3 @@
-"""Plantilla de `models.py` para la app `calificaciones_nombre__estudiantes`.
-
-Esta plantilla NO implementa lógica, solo muestra la estructura sugerida.
-Sustituir y completar al implementar el modelo real.
-"""
-
 from decimal import Decimal
 
 from django.db import models
@@ -28,4 +22,3 @@ class Calificacion(models.Model):
 
     def __str__(self):
         return f"{self.nombre_estudiante} - {self.asignatura}"
-

@@ -1,8 +1,4 @@
-"""Configuración mínima de ejemplo para desarrollo local.
-
-Completar o securizar antes de un despliegue real. Esta configuración
-usa SQLite y busca variables de entorno cuando es posible.
-"""
+"""Configuración mínima de ejemplo para desarrollo local."""
 
 import os
 from pathlib import Path
@@ -12,8 +8,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY', 'replace-me')
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -68,5 +62,7 @@ LANGUAGE_CODE = 'es-es'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_URL = '/static/'
